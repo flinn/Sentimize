@@ -2,13 +2,9 @@ var fool_content = require('../fool.js');
 var sentiments = require('../psychsignal.js');
 
 exports.fool = function(req, res){
-
   fool_content(req.params.symbol, function(err, contents){
 
-    res.render('content', {
-        pagename: 'NewsFeed',
-        contents: contents
-    });
+    res.json(contents);
 
   });
 
@@ -20,10 +16,9 @@ exports.sentiments = function(req, res){
         res.json(contents);
   });
 
-exports.quotes = function(req, res) {
-	quotes(req.params.symbol)
+};
 
-	});
 
+exports.quotes = function(req, res){
 
 };

@@ -1,10 +1,9 @@
 var express = require('express'),
     routes = require('./routes'),
     content = require('./routes/content'),
-    quotes = require('./routes/quotes'),
+    snapshot = require('./routes/snapshot'),
     swig = require('swig'),
-    path = require('path'),
-    logger = require('tracer').colorConsole();
+    path = require('path');
 
 var app = express();
 
