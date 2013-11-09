@@ -15,10 +15,15 @@ exports.fool = function(req, res){
 };
 
 exports.sentiments = function(req, res){
-
-  sentiments(req.params.symbol, req.query.startDate, req.query.endDate, function(err, contents){
+	sentiments(req.params.symbol, req.query.startDate, req.query.endDate, function(err, contents){
 
         res.json(contents);
   });
+
+exports.quotes = function(req, res) {
+	quotes(req.params.symbol)
+
+	});
+
 
 };
