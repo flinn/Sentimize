@@ -31,6 +31,8 @@ app.get('/', routes.index);
 
 app.get('/contents/:symbol', content.fool);
 
+app.get('/sentiments/:symbol', content.sentiments);
+
 
 app.listen(3000, function(){
   console.log('Express server listening on port ' + app.get('port'));
