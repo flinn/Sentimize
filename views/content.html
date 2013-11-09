@@ -1,0 +1,11 @@
+<h1>{{ pagename|title }}</h1>
+<ul>
+{% for content in contents %}
+  <li{% if loop.first %} class="first"{% endif %}>
+    {{ content.Title }}
+  </li>
+  <li>
+      {{ content.Url }}
+  </li>
+{% endfor %}
+</ul>
