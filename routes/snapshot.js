@@ -1,7 +1,7 @@
 var load_sentiments = require('../psychsignal'),
-    load_fool_content = require('../fool.js'),
-    load_quotes = require('../quotes.js'),
-    async = require('async');
+    load_fool_content = require('../fool'),
+    load_quotes = require('../quotes'),
+    load_tweets = require('../stocktwits').get_tweets;
 
 exports.index = function(req, res){
     var data = {};
@@ -14,7 +14,7 @@ exports.index = function(req, res){
 
         callbackCounter++;
 
-        if (callbackCounter == 3) {
+        if (callbackCounter == 4) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -25,10 +25,9 @@ exports.index = function(req, res){
     load_quotes(req.params.symbol, '2013-07-01', '2013-10-31', function(err, contents){
         data.quotes = contents;
 
-        console.log(data.quotes);
         callbackCounter++;
 
-        if (callbackCounter == 3) {
+        if (callbackCounter == 4) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -41,7 +40,20 @@ exports.index = function(req, res){
 
         callbackCounter++;
 
-        if (callbackCounter == 3) {
+        if (callbackCounter == 4) {
+            res.render('snapshot', {
+                data: data,
+                pagename: "NewsFeed"
+            });
+        }
+    });
+
+    load_tweets(req.params.symbol, function(err, contents){
+        data.tweets = contents;
+
+        callbackCounter++;
+
+        if (callbackCounter == 4) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
