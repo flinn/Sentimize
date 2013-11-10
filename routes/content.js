@@ -13,16 +13,9 @@ exports.fool = function(req, res){
 
 exports.sentiments = function(req, res){
 	get_sentiments(req.params.symbol, req.query.startDate, req.query.endDate, function(err, contents){
-
-        res.json(contents);
+    
+    res.json(contents);
+    
   });
 
-};
-
-
-exports.quotes = function(req, res){
-    get_quotes(req.params.symbol, req.query.startDate, req.query.endDate, function(err, contents){
-
-        res.json(contents);
-  });
 };
