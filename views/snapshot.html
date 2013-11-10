@@ -3,12 +3,14 @@
 {% block head %}
     {% parent %}
     <title>Snap shot</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 {% endblock %}
 
 
 {% block content %}
 
     <script>
+
         var json_data1 = {{JSON.stringify(data.bullish)}};
         var json_data2 = {{JSON.stringify(data.bearish)}};
         var json_data_compiled = [];
@@ -19,7 +21,9 @@
             var sentiment = { date: date, bullish: bullish, bearish: bearish };
             json_data_compiled.push(sentiment);
         }
-        var chartData = json_data1
+
+      var symbol = "{{data.symbol}}";
+      var chartData = json_data1;
     </script>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -34,11 +38,19 @@
 
     </div><!-- /.container -->
 
+    <h1>{{ pagename|title }}</h1>
+    <ul>
+    {% for content in data.foolcontents %}
+      <li{% if loop.first %} class="first"{% endif %}>
+          <a href="{{ content.Url }}">{{content.Title}}<a>
+      </li>
+    {% endfor %}
+    </ul>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
     <script src="../js/bootstrap.min.js"></script>
 
     <script src="http://www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>
