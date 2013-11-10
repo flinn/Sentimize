@@ -2,6 +2,7 @@
 	margin-left: -20px;
 	font-family: 'Roboto', sans-serif;
 	font-size: 40px !important;
+	color: #f1c40f !important;
 }
 
 .nav-logo {
@@ -12,9 +13,16 @@
 	width: 50px;
 }
 
+.breadcrumb-nav {
+	color: white; 
+	display: inline-block; 
+	float: right;
+	margin-left: -20px;
+	font-size: 32px;
+}
+
 .navbar {
 	border-radius: 0px !important;
-	padding-bottom: 7px;
 }
 
 .navbar.navbar-inverse .navbar-form .form-control:focus {

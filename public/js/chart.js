@@ -3,6 +3,11 @@ var chartCursor;
 
 AmCharts.ready(function () {
 
+    //Color Key:
+    var color_blue = '#3498DB';
+    var color_red = '#E74C3C';
+    var color_green = '#2ECC71';
+
     chart = new AmCharts.AmSerialChart();
     chart.pathToImages = "http://www.amcharts.com/lib/3/images/";
     chart.dataProvider = chartData;
@@ -43,7 +48,7 @@ AmCharts.ready(function () {
     graph1.bulletBorderThickness = 2;
     graph1.bulletBorderAlpha = 1;
     graph1.lineThickness = 2;
-    graph1.lineColor = "#2ECC71";
+    graph1.lineColor = color_green;
     graph1.negativeLineColor = "#efcc26";
     graph1.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
     chart.addGraph(graph1);
@@ -57,7 +62,7 @@ AmCharts.ready(function () {
     graph2.bulletBorderThickness = 2;
     graph2.bulletBorderAlpha = 1;
     graph2.lineThickness = 2;
-    graph2.lineColor = "#E74C3C";
+    graph2.lineColor = color_red;
     graph2.negativeLineColor = "#efcc26";
     graph2.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
     chart.addGraph(graph2);
@@ -71,7 +76,7 @@ AmCharts.ready(function () {
     graph3.bulletBorderThickness = 2;
     graph3.bulletBorderAlpha = 1;
     graph3.lineThickness = 2;
-    graph3.lineColor = "#2C3E50";
+    graph3.lineColor = color_blue;
     graph3.negativeLineColor = "#efcc26";
     graph3.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
     chart.addGraph(graph3);

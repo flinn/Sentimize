@@ -13,15 +13,12 @@
     <title>Sentimizer</title>
 
 
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="css/flat-ui.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../css/flat-ui.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
     <script src="../js/jquery-1.8.3.min.js"></script>
     {% block head %}
     {% endblock %}
-</head>
-
-<body>
     <script type="text/javascript">
     console.log("Header loaded ... Whoop whoop!");
     function snapshot() {
@@ -29,10 +26,15 @@
         window.location.href = "/snapshot/" + symbol;
     };
     </script>
+</head>
+
+<body>
     <div class="navbar navbar-inverse">
         <div class="navbar-header">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-collapse-02"></button>
-            <img src="images/icons/map.svg" class="nav-logo"><a href="#" class="navbar-brand nav-title">Sent¡m!ze</a>
+            <img src="../images/icons/map.svg" class="nav-logo">
+            <a href="/" class="navbar-brand nav-title">Sent¡m!ze</a>
+            <span class="breadcrumb-nav"><span class="fui-arrow-right"></span>{% block area %}{% endblock %}</span>
         </div>
         <div class="navbar-collapse collapse navbar-collapse-02">
           <form class="navbar-form navbar-right" action="javascript:snapshot()">

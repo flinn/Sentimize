@@ -23,9 +23,3 @@ exports.index = function(req, res){
   	data: model
   });
 };
-
-exports.stocks = function(req, res){
-	var stocksList = {};
-  res.json(stocksList);
-
-};
