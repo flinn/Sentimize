@@ -1,5 +1,6 @@
 var fool_content = require('../fool.js'),
     get_sentiments = require('../psychsignal.js'),
+    get_trending_symbols = require('../stocktwits.js'),
     get_quotes = require('../quotes.js');
 
 exports.fool = function(req, res){
@@ -8,7 +9,6 @@ exports.fool = function(req, res){
         res.json(contents);
 
     });
-
 };
 
 exports.sentiments = function(req, res){
@@ -17,7 +17,6 @@ exports.sentiments = function(req, res){
         res.json(contents);
 
     });
-
 };
 
 exports.quotes = function(req, res){
@@ -26,5 +25,12 @@ exports.quotes = function(req, res){
         res.json(contents);
 
     });
+};
 
+exports.trendingSymbols = function(req, res){
+    get_trending_symbols(function(err, contents){
+
+        res.json(contents);
+
+    });
 };
