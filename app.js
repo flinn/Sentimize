@@ -28,12 +28,13 @@ if ('development' == app.get('env')) {
 
 // Routes
 app.get('/', routes.index);
-app.get('/snapshot/:symbol', snapshot.model);
+app.get('/snapshot/:symbol', snapshot.index);
 
 // API Endpoints
 app.get('/api/sentiments/:symbol', content.sentiments);
-//app.get('/api/quotes/:symbol', content.quotes);
+app.get('/api/quotes/:symbol', content.quotes);
 app.get('/api/content/:symbol', content.fool);
+app.get('/api/trending/', content.trendingSymbols);
 
 app.listen(3000, function(){
   console.log('Express server listening on port ' + app.get('port'));

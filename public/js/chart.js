@@ -1,23 +1,16 @@
 var chart;
-var chartData = [];
 var chartCursor;
 
 AmCharts.ready(function () {
-    // generate some data first
-    // generateChartData();
-    runAjax();
-    runResponse();
 
-    // SERIAL CHART    
     chart = new AmCharts.AmSerialChart();
     chart.pathToImages = "http://www.amcharts.com/lib/3/images/";
     chart.dataProvider = chartData;
+
     chart.categoryField = "date";
     chart.balloon.bulletSize = 5;
-    
-    // listen for "dataUpdated" event (fired when chart is rendered) and call zoomChart method when it happens
-    chart.addListener("dataUpdated", zoomChart);
-    
+
+
     // AXES
     // category
     var categoryAxis = chart.categoryAxis;
@@ -27,109 +20,79 @@ AmCharts.ready(function () {
     categoryAxis.minorGridEnabled = true;
     categoryAxis.position = "top";
     categoryAxis.axisColor = "#DADADA";
-    
-    // value                
-    var valueAxis = new AmCharts.ValueAxis();
-    valueAxis.axisAlpha = 0;
-    valueAxis.dashLength = 1;
-    chart.addValueAxis(valueAxis);
-    
+
+    // value
+    var valueAxis1 = new AmCharts.ValueAxis();
+    valueAxis1.axisAlpha = 0;
+    valueAxis1.dashLength = 1;
+    chart.addValueAxis(valueAxis1);
+
+    var valueAxis2 = new AmCharts.ValueAxis();
+    valueAxis2.position = "right";
+    valueAxis2.axisAlpha = 0;
+    valueAxis2.dashLength = 1;
+    chart.addValueAxis(valueAxis2);
+
     // GRAPH
-    var graph = new AmCharts.AmGraph();
-    graph.title = "red line";
-    graph.valueField = "visits";
-    graph.bullet = "round";
-    graph.bulletBorderColor = "#FFFFFF";
-    graph.bulletBorderThickness = 2;
-    graph.bulletBorderAlpha = 1;
-    graph.lineThickness = 2;
-    graph.lineColor = "#5fb503";
-    graph.negativeLineColor = "#efcc26";
-    graph.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
-    chart.addGraph(graph);
-    
+    var graph1 = new AmCharts.AmGraph();
+    graph1.valueAxis = valueAxis1; // we have to indicate which value axis should be used
+    graph1.title = "Bullish";
+    graph1.valueField = "bullish";
+    graph1.bullet = "round";
+    graph1.bulletBorderColor = "#FFFFFF";
+    graph1.bulletBorderThickness = 2;
+    graph1.bulletBorderAlpha = 1;
+    graph1.lineThickness = 2;
+    graph1.lineColor = "#2ECC71";
+    graph1.negativeLineColor = "#efcc26";
+    graph1.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
+    chart.addGraph(graph1);
+
+    var graph2 = new AmCharts.AmGraph();
+    graph2.valueAxis = valueAxis1; // we have to indicate which value axis should be used
+    graph2.title = "Bearish";
+    graph2.valueField = "bearish";
+    graph2.bullet = "round";
+    graph2.bulletBorderColor = "#FFFFFF";
+    graph2.bulletBorderThickness = 2;
+    graph2.bulletBorderAlpha = 1;
+    graph2.lineThickness = 2;
+    graph2.lineColor = "#E74C3C";
+    graph2.negativeLineColor = "#efcc26";
+    graph2.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
+    chart.addGraph(graph2);
+
+    var graph3 = new AmCharts.AmGraph();
+    graph3.valueAxis = valueAxis2; // we have to indicate which value axis should be used
+    graph3.title = "Price";
+    graph3.valueField = "price";
+    graph3.bullet = "round";
+    graph3.bulletBorderColor = "#FFFFFF";
+    graph3.bulletBorderThickness = 2;
+    graph3.bulletBorderAlpha = 1;
+    graph3.lineThickness = 2;
+    graph3.lineColor = "#2C3E50";
+    graph3.negativeLineColor = "#efcc26";
+    graph3.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
+    chart.addGraph(graph3);
+
     // CURSOR
     chartCursor = new AmCharts.ChartCursor();
     chartCursor.cursorPosition = "mouse";
     chartCursor.pan = true; // set it to fals if you want the cursor to work in "select" mode
     chart.addChartCursor(chartCursor);
-    
+
     // SCROLLBAR
     var chartScrollbar = new AmCharts.ChartScrollbar();
     chart.addChartScrollbar(chartScrollbar);
-    
-    // WRITE
+
+    // LEGEND
+
+    var legend = new AmCharts.AmLegend();
+    legend.marginLeft = 110;
+    legend.useGraphSettings = true;
+    chart.addLegend(legend);
+
+    // draw
     chart.write("chartdiv");
 });
-
-function generateChartData() {
-    var firstDate = new Date();
-    firstDate.setDate(firstDate.getDate() - 500);
-    
-    for (var i = 0; i < 500; i++) {
-        // we create date objects here. In your data, you can have date strings 
-        // and then set format of your dates using chart.dataDateFormat property,
-        // however when possible, use date objects, as this will speed up chart rendering.
-        var newDate = new Date(firstDate);
-        newDate.setDate(newDate.getDate() + i);
-        
-        var visits = Math.round(Math.random() * 40) - 20;
-        
-        chartData.push({
-            date: newDate,
-            visits: visits
-        });
-    }
-}
-
-
-// this method is called when chart is first inited as we listen for "dataUpdated" event
-function zoomChart() {
-    // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-    chart.zoomToIndexes(chartData.length - 40, chartData.length - 1);
-}
-
-// changes cursor mode from pan to select
-function setPanSelect() {
-    if (document.getElementById("rb1").checked) {
-        chartCursor.pan = false;
-        chartCursor.zoomable = true;
-    } else {
-        chartCursor.pan = true;
-    }
-    chart.validateNow();
-}
-
-
-// Reaches out to the api sentiments
-function runAjax()
-{
-    if(window.XMLHttpRequest)
-        req = new XMLHttpRequest();
-    else
-        req = new ActiveXObject("Microsoft.XMLHttp");
-    req.onreadystatechange = runResponse;
-    url="/api/sentiments/MSFT?startDate=2013-10-01&endDate=2013-10-31";
-    req.open("GET",url,true);
-    req.send(null);
-}
-
-function runResponse()
-{
-    if(req.readyState==4)
-    {
-        data = req.responseText
-        //alert(data);
-        jsondata = JSON.parse(data);
-        for(i=0;i<jsondata.bullish.length;i++)
-        {
-            chartData.push({
-                date: new Date(jsondata.bullish[i].date),
-                sentiments: jsondata.bullish[i].value
-            });
-        }
-    }
-    return chartData;
-}
-
-console.log(chartData);
