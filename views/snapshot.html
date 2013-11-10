@@ -23,7 +23,8 @@
 
             var bullish = json_data1[i].value;
             var bearish = json_data2[i].value;
-            var sentiment = { date: date, bullish: bullish, bearish: bearish };
+            var price = json_data3.quotes[i].LastClose;
+            var sentiment = { date: date, bullish: bullish, bearish: bearish, price: price  };
 
             json_data_compiled.push(sentiment);
         }

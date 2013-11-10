@@ -27,6 +27,12 @@ AmCharts.ready(function () {
     valueAxis1.dashLength = 1;
     chart.addValueAxis(valueAxis1);
 
+    var valueAxis2 = new AmCharts.ValueAxis();
+    valueAxis2.position = "right";
+    valueAxis2.axisAlpha = 0;
+    valueAxis2.dashLength = 1;
+    chart.addValueAxis(valueAxis2);
+
     // GRAPH
     var graph1 = new AmCharts.AmGraph();
     graph1.valueAxis = valueAxis1; // we have to indicate which value axis should be used
@@ -55,6 +61,20 @@ AmCharts.ready(function () {
     graph2.negativeLineColor = "#efcc26";
     graph2.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
     chart.addGraph(graph2);
+
+    var graph3 = new AmCharts.AmGraph();
+    graph3.valueAxis = valueAxis2; // we have to indicate which value axis should be used
+    graph3.title = "Price";
+    graph3.valueField = "price";
+    graph3.bullet = "round";
+    graph3.bulletBorderColor = "#FFFFFF";
+    graph3.bulletBorderThickness = 2;
+    graph3.bulletBorderAlpha = 1;
+    graph3.lineThickness = 2;
+    graph3.lineColor = "#2C3E50";
+    graph3.negativeLineColor = "#efcc26";
+    graph3.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
+    chart.addGraph(graph3);
 
     // CURSOR
     chartCursor = new AmCharts.ChartCursor();
