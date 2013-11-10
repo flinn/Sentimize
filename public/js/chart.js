@@ -1,12 +1,11 @@
 var chart;
-var chartData = [];
 var chartCursor;
 
 AmCharts.ready(function () {
-    generateChartData();
+    // generateChartData();
 
     chart = new AmCharts.AmSerialChart();
-
+    chart.pathToImages = "http://www.amcharts.com/lib/3/images/";
     chart.dataProvider = chartData;
     console.log(chartData);
     console.log(chart.dataProvider);
