@@ -25,6 +25,7 @@ exports.index = function(req, res){
     load_quotes(req.params.symbol, '2013-07-01', '2013-10-31', function(err, contents){
         data.quotes = contents;
 
+        console.log(data.quotes);
         callbackCounter++;
 
         if (callbackCounter == 2) {
