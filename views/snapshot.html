@@ -41,23 +41,22 @@ Snapshot <span class="fui-arrow-right"></span> <strong>{{ data.symbol }}</strong
         <div style="float:right;margin-right:20px;"></div>
     </div><!-- /.container -->
 
-    <h3>Key Words</h3>
-        {% for word in data.tweetwordcount %}
-            <div style="display: inline;">
-              <a href="#fakelink" id="tag" class="btn btn-primary">{{word.word}}</a>
-            </div>
-        {% endfor %}
-
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-            <th><h3>The Motley Fool Articles</h3></th>
+            <th><h3>Key Words</h3></th>
             <th><h3>Tweets</h3></th>
         </tr>
       </thead>
       <tbody>
           <tr>
-            <td style="width: 50%">
+            <td style="width: 50%; margin-top: -25px;">
+                {% for word in data.tweetwordcount %}
+                <div style="display: inline-block; margin: 7px 5px;">
+                    <a href="#fakelink" id="tag" class="btn btn-primary">{{word.word}}</a>
+                </div>
+                {% endfor %}
+                <h3>Fool.com Articles</h3>
                 {% for content in data.foolcontents %}
                 <table>
                     <tr>
@@ -65,8 +64,9 @@ Snapshot <span class="fui-arrow-right"></span> <strong>{{ data.symbol }}</strong
                         <td class="padded-row"><a href="{{ content.Url }}">{{content.Title}}</a></td>
                 </table>
                 {% endfor %}
+                
             </td>
-            <td style="width: 50%">
+            <td style="width: 50%; margin-top: -25px;">
                 {% for tweet in data.tweets %}
                 <table>
                     <tr>
