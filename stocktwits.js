@@ -2,6 +2,7 @@ var request = require('request'),
     _  = require('underscore'),
     _s = require('underscore.string');
 
+
 module.exports = function get_trending_symbol(fn){
 
     var url = _s.sprintf("https://api.stocktwits.com/api/2/streams/trending.json");
