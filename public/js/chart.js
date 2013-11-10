@@ -30,28 +30,28 @@ AmCharts.ready(function () {
     // GRAPH
     var graph1 = new AmCharts.AmGraph();
     graph1.valueAxis = valueAxis1; // we have to indicate which value axis should be used
-    graph1.title = "red line";
-    graph1.valueField = "value";
+    graph1.title = "Bullish";
+    graph1.valueField = "bullish";
     graph1.bullet = "round";
     graph1.bulletBorderColor = "#FFFFFF";
     graph1.bulletBorderThickness = 2;
     graph1.bulletBorderAlpha = 1;
     graph1.lineThickness = 2;
-    graph1.lineColor = "#5fb503";
+    graph1.lineColor = "#2ECC71";
     graph1.negativeLineColor = "#efcc26";
     graph1.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
     chart.addGraph(graph1);
 
     var graph2 = new AmCharts.AmGraph();
     graph2.valueAxis = valueAxis1; // we have to indicate which value axis should be used
-    graph2.title = "red line";
-    graph2.valueField = "value";
+    graph2.title = "Bearish";
+    graph2.valueField = "bearish";
     graph2.bullet = "round";
     graph2.bulletBorderColor = "#FFFFFF";
     graph2.bulletBorderThickness = 2;
     graph2.bulletBorderAlpha = 1;
     graph2.lineThickness = 2;
-    graph2.lineColor = "#5fb503";
+    graph2.lineColor = "#3498DB";
     graph2.negativeLineColor = "#efcc26";
     graph2.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
     chart.addGraph(graph2);
@@ -65,6 +65,13 @@ AmCharts.ready(function () {
     // SCROLLBAR
     var chartScrollbar = new AmCharts.ChartScrollbar();
     chart.addChartScrollbar(chartScrollbar);
+
+    // LEGEND
+
+    var legend = new AmCharts.AmLegend();
+    legend.marginLeft = 110;
+    legend.useGraphSettings = true;
+    chart.addLegend(legend);
 
     // draw
     chart.write("chartdiv");
