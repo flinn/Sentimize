@@ -2,6 +2,7 @@ var express = require('express'),
     routes = require('./routes'),
     content = require('./routes/content'),
     snapshot = require('./routes/snapshot'),
+    stocks = require('./routes/stocks'),
     swig = require('swig'),
     path = require('path');
 
@@ -28,6 +29,7 @@ if ('development' == app.get('env')) {
 
 // Routes
 app.get('/', routes.index);
+app.get('/stocks/add', stocks.index);
 app.get('/snapshot/:symbol', snapshot.index);
 
 // API Endpoints

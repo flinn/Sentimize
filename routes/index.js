@@ -1,4 +1,3 @@
-
 exports.index = function(req, res){
 	var model = {};
 	var stocksList = [];
