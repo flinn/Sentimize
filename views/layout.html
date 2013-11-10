@@ -8,12 +8,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="docs-assets/ico/favicon.png">
+    <link href='http://fonts.googleapis.com/css?family=Permanent+Marker' rel='stylesheet' type='text/css'>
 
-    <title>Sentimize : Content Dashboard</title>
+    <title>Sentimizer</title>
 
-
-    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="../css/flat-ui.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="css/flat-ui.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
     {% block head %}
     {% endblock %}
 </head>
@@ -23,7 +24,7 @@
     <div class="navbar navbar-inverse">
         <div class="navbar-header">
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-collapse-02"></button>
-          <a href="#fakelink" class="navbar-brand fui-flat"></a>
+            <img src="images/icons/goal.svg" class="nav-logo"><a href="#fakelink" class="navbar-brand nav-title">Sentimizer</a>
         </div>
         <div class="navbar-collapse collapse navbar-collapse-02">
           <form class="navbar-form navbar-right" action="#">
@@ -56,12 +57,12 @@
               </li>
             </ul> <!-- /nav -->
         </div><!--/.navbar-collapse -->
-      </div>
+    </div>
 
     <div class="container">
 		{% block content %}{% endblock %}
 	</div>
-
+    
     <script src="../js/jquery-1.8.3.min.js"></script>
     <script src="../js/jquery-ui-1.10.3.custom.min.js"></script>
     <script src="../js/jquery.ui.touch-punch.min.js"></script>

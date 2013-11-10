@@ -1,0 +1,25 @@
+.nav-title {
+	margin-left: -20px;
+	font-family: 'Permanent Marker', cursive;
+	font-size: 40px !important;
+}
+
+.nav-logo {
+	float: left;
+	padding-left: 15px;
+	padding-top: 3px;
+	height: 50px;
+	width: 50px;
+}
+
+.navbar {
+	border-radius: 0px !important;
+}
+
+.navbar.navbar-inverse .navbar-form .form-control:focus {
+	border-color: none;
+}
+
+.navbar .navbar-form .form-control:focus {
+	border-color: none;
+}
