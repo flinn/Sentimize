@@ -52,7 +52,7 @@ exports.index = function(req, res){
         data.tweets = contents;
 
         callbackCounter++;
-
+        console.log(data.tweets);
         if (callbackCounter == 4) {
             res.render('snapshot', {
                 data: data,

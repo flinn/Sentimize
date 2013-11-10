@@ -34,7 +34,7 @@ exports.get_tweets = function (symbol, fn){
                  tweets.push(message);
             });
 
-            return fn(null, {tweets: tweets});
+            return fn(null, tweets);
         }
     });
 };
