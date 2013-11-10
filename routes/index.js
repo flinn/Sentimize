@@ -6,8 +6,10 @@ var load_sentiments = require('../psychsignal'),
 
 exports.index = function(req, res) {
   
-  var myStocks = ["MSFT", "AAPL", "GOOG"];
+  var myStocks = ['MSFT', 'AAPL', 'GOOG'];
   var final_data = [];
+  var model = {};
+  var callbackCounter = 0;
 
   myStocks.forEach(function(stock){
   	
@@ -21,6 +23,7 @@ exports.index = function(req, res) {
   			load_sentiments(stock, '2013-07-01', '2013-10-31', function(err, contents){
 
   					results.sentiments = contents;
+  					callbackCounter++;
   					callback(null, results);
   			})
   		},
@@ -28,6 +31,7 @@ exports.index = function(req, res) {
 
   		  load_quotes(stock, '2013-07-01', '2013-10-31', function(err, contents){
   		  		results.quotes = contents;
+  		  		callbackCounter++;
   		  		callback(null, results);
   		  })
   		},
@@ -35,6 +39,7 @@ exports.index = function(req, res) {
 
   		  load_trending_symbols(function(err, contents){
   		  		results.trendingsymbols = contents;
+  		  		callbackCounter++;
   		  		final_data.push(results);
 
   		  		callback(null, final_data);
@@ -77,11 +82,12 @@ exports.index = function(req, res) {
 
 			    rows.push(row);
   			});
+  			model.stocks = rows;
+  			console.log(model.stocks);
 
-		    console.log(rows);
-
-		    res.render('index', {data: rows});
+  			if (callbackCounter == (myStocks.length * 3)) {
+					res.render('index', {data: model});
+				}
   	});
   });
-	
 };
