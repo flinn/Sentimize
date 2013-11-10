@@ -45,4 +45,9 @@
 
 .headrow .strong {
 	font-weight: bold;
+	border-color: none;
+}
+
+.padded-row {
+	padding: 5px 5px;
 }
