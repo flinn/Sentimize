@@ -51,7 +51,7 @@ exports.get_word_counts = function (symbol, fn){
         var uselessList = [
                 "the", "of", "to", "and", "a", "in", "is", "it", "an", "no", "says","than", "more", "also",
                 "you", "that", "he", "was", "for", "on", "are", "always", "a7", "put", "why", "gets", "how", "if",
-                "with", "as", "I", "his", "they", "be", "at", "one",
+                "with", "as", "I", "his", "they", "be", "at", "one", "still", "will",
                 "have", "this", "from", "or", "had", "by", "but",
                 "some", "what", "there", "we", "can", "out",
                 "other", "were", "all", "your", "when", "my"];
@@ -94,7 +94,7 @@ exports.get_word_counts = function (symbol, fn){
 
        wordCounts =  _.sortBy(wordCounts, function(word){ return word['count'];});
 
-        return fn(null, {wordCount: _.first(wordCounts.reverse(), [10])});
+        return fn(null, _.first(wordCounts.reverse(), [10]));
         }
     });
 };

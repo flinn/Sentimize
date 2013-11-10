@@ -1,7 +1,8 @@
 var load_sentiments = require('../psychsignal'),
     load_fool_content = require('../fool'),
     load_quotes = require('../quotes'),
-    load_tweets = require('../stocktwits').get_tweets;
+    load_tweets = require('../stocktwits').get_tweets,
+    load_tweet_word_count = require('../stocktwits').get_word_counts;
 
 exports.index = function(req, res){
     var data = {};
@@ -14,7 +15,7 @@ exports.index = function(req, res){
 
         callbackCounter++;
 
-        if (callbackCounter == 4) {
+        if (callbackCounter == 5) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -27,7 +28,7 @@ exports.index = function(req, res){
 
         callbackCounter++;
 
-        if (callbackCounter == 4) {
+        if (callbackCounter == 5) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -40,7 +41,7 @@ exports.index = function(req, res){
 
         callbackCounter++;
 
-        if (callbackCounter == 4) {
+        if (callbackCounter == 5) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -52,12 +53,25 @@ exports.index = function(req, res){
         data.tweets = contents;
 
         callbackCounter++;
-        console.log(data.tweets);
-        if (callbackCounter == 4) {
+        
+        if (callbackCounter == 5) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
             });
         }
     });
+
+    load_tweet_word_count(req.params.symbol, function(err, contents){
+        data.tweetwordcount = contents;
+
+        callbackCounter++;
+        
+        if (callbackCounter == 5) {
+            res.render('snapshot', {
+                data: data,
+                pagename: "NewsFeed"
+            });
+        }
+    })
 };
