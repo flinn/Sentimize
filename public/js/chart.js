@@ -51,7 +51,7 @@ AmCharts.ready(function () {
     graph2.bulletBorderThickness = 2;
     graph2.bulletBorderAlpha = 1;
     graph2.lineThickness = 2;
-    graph2.lineColor = "#3498DB";
+    graph2.lineColor = "#E74C3C";
     graph2.negativeLineColor = "#efcc26";
     graph2.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
     chart.addGraph(graph2);

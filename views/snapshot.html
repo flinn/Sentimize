@@ -13,18 +13,26 @@
 
         var json_data1 = {{JSON.stringify(data.sentiments.bullish)}};
         var json_data2 = {{JSON.stringify(data.sentiments.bearish)}};
+
+        var json_data3 = {{JSON.stringify(data.quotes)}};
+
         var json_data_compiled = [];
+
         for(i = 0; i < json_data1.length; i++) {
             var date = json_data1[i].date;
+
             var bullish = json_data1[i].value;
             var bearish = json_data2[i].value;
             var sentiment = { date: date, bullish: bullish, bearish: bearish };
+
             json_data_compiled.push(sentiment);
         }
 
       var symbol = "{{data.symbol}}";
       var chartData = json_data_compiled;
+
     </script>
+
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
       </div>

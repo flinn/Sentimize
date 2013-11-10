@@ -1,5 +1,6 @@
 var load_sentiments = require('../psychsignal'),
     load_fool_content = require('../fool.js'),
+    load_quotes = require('../quotes.js'),
     async = require('async');
 
 exports.index = function(req, res){
@@ -13,7 +14,20 @@ exports.index = function(req, res){
 
         callbackCounter++;
 
-        if (callbackCounter == 1) {
+        if (callbackCounter == 2) {
+            res.render('snapshot', {
+                data: data,
+                pagename: "NewsFeed"
+            });
+        }
+    });
+
+    load_quotes(req.params.symbol, '2013-07-01', '2013-10-31', function(err, contents){
+        data.quotes = contents;
+
+        callbackCounter++;
+
+        if (callbackCounter == 2) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
