@@ -4,8 +4,10 @@ var chartCursor;
 
 AmCharts.ready(function () {
     // generate some data first
-    generateChartData();
-    
+    // generateChartData();
+    runAjax();
+    runResponse();
+
     // SERIAL CHART    
     chart = new AmCharts.AmSerialChart();
     chart.pathToImages = "http://www.amcharts.com/lib/3/images/";
@@ -60,7 +62,6 @@ AmCharts.ready(function () {
     chart.write("chartdiv");
 });
 
-// generate some random data, quite different range
 function generateChartData() {
     var firstDate = new Date();
     firstDate.setDate(firstDate.getDate() - 500);
@@ -81,6 +82,7 @@ function generateChartData() {
     }
 }
 
+
 // this method is called when chart is first inited as we listen for "dataUpdated" event
 function zoomChart() {
     // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
@@ -97,3 +99,37 @@ function setPanSelect() {
     }
     chart.validateNow();
 }
+
+
+// Reaches out to the api sentiments
+function runAjax()
+{
+    if(window.XMLHttpRequest)
+        req = new XMLHttpRequest();
+    else
+        req = new ActiveXObject("Microsoft.XMLHttp");
+    req.onreadystatechange = runResponse;
+    url="/api/sentiments/MSFT?startDate=2013-10-01&endDate=2013-10-31";
+    req.open("GET",url,true);
+    req.send(null);
+}
+
+function runResponse()
+{
+    if(req.readyState==4)
+    {
+        data = req.responseText
+        //alert(data);
+        jsondata = JSON.parse(data);
+        for(i=0;i<jsondata.bullish.length;i++)
+        {
+            chartData.push({
+                date: new Date(jsondata.bullish[i].date),
+                sentiments: jsondata.bullish[i].value
+            });
+        }
+    }
+    return chartData;
+}
+
+console.log(chartData);
