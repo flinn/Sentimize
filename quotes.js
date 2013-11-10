@@ -11,12 +11,7 @@ module.exports = function get_quotes(symbol, startDate, endDate, fn){
     request({url:url, json:true}, function (error, response, contents) {
 
         if (!error && response.statusCode == 200) {
-
-            var data = {
-                "quotes": contents.GlobalQuotes
-            };
-
-            return fn(null, data);
+            return fn(null, contents.GlobalQuotes);
         }
     });
 };

@@ -28,23 +28,29 @@ Dashboard
         </tr>
       </thead>
       <tbody>
-        {% for stock in data.stocks %}
+
+          
+          {% for row in data %}
+            {{JSON.parse(row)}}
+          {% endfor %}
+
+        {% for row in data %}
           <tr>
-            <td><strong>{{ stock.rank }}</strong></td>
-            <td>{{ stock.symbol }}</td>
-            <td>{{ stock.sentimetric }}</td>
-            <td>{{ stock.price }}</td>
-            <td>{{ stock.bullish }}</td>
-            <td>{{ stock.bearish }}</td>
+            <td><strong>{{ row.rank }}</strong></td>
+            <td>{{ row.symbol }}</td>
+            <td>{{ row.sentimetric }}</td>
+            <td>{{ row.price }}</td>
+            <td>{{ row.bullish }}</td>
+            <td>{{ row.bearish }}</td>
             <td>
-              {% for star in stock.cap_stars %}
+              {% for star in row.cap_stars %}
                 <span style="color: #f1c40f" class="fui-star-2"></span>
               {% endfor %}
-              {% for star in stock.non_cap_stars %}
+              {% for star in row.non_cap_stars %}
                 <span style="color: #bdc3c7" class="fui-star-2"></span>
               {% endfor %}
             </td>
-            <td><span class="badge">{{ stock.idea_num }}</span></td>
+            <td><span class="badge">{{ row.idea_num }}</span></td>
             <td><a class="btn btn-xs btn-info" href="/snapshot/{{ stock.symbol }}">Details</a></td>
           </tr>
         {% endfor %}
