@@ -14,7 +14,7 @@ exports.index = function(req, res){
 
         callbackCounter++;
 
-        if (callbackCounter == 2) {
+        if (callbackCounter == 3) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -28,7 +28,7 @@ exports.index = function(req, res){
         console.log(data.quotes);
         callbackCounter++;
 
-        if (callbackCounter == 2) {
+        if (callbackCounter == 3) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -36,16 +36,16 @@ exports.index = function(req, res){
         }
     });
 
-    // load_fool_content(req.params.symbol, function(err, contents){
-    //     data.foolcontents = contents;
+    load_fool_content(req.params.symbol, function(err, contents){
+        data.foolcontents = contents;
 
-    //     callbackCounter++;
+        callbackCounter++;
 
-    //     if (callbackCounter == 2) {
-    //         res.render('snapshot', {
-    //             data: data,
-    //             pagename: "NewsFeed"
-    //         });
-    //     }
-    // });
+        if (callbackCounter == 3) {
+            res.render('snapshot', {
+                data: data,
+                pagename: "NewsFeed"
+            });
+        }
+    });
 };
