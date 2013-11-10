@@ -1,10 +1,9 @@
 var express = require('express'),
     routes = require('./routes'),
     content = require('./routes/content'),
-    quotes = require('./routes/quotes'),
+    snapshot = require('./routes/snapshot'),
     swig = require('swig'),
-    path = require('path'),
-    logger = require('tracer').colorConsole();
+    path = require('path');
 
 var app = express();
 
@@ -33,7 +32,7 @@ app.get('/snapshot/:symbol', snapshot.model);
 
 // API Endpoints
 app.get('/api/sentiments/:symbol', content.sentiments);
-app.get('/api/quotes/:symbol', content.quotes);
+//app.get('/api/quotes/:symbol', content.quotes);
 app.get('/api/content/:symbol', content.fool);
 
 app.listen(3000, function(){
