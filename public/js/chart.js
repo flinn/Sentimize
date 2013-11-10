@@ -22,24 +22,39 @@ AmCharts.ready(function () {
     categoryAxis.axisColor = "#DADADA";
 
     // value
-    var valueAxis = new AmCharts.ValueAxis();
-    valueAxis.axisAlpha = 0;
-    valueAxis.dashLength = 1;
-    chart.addValueAxis(valueAxis);
+    var valueAxis1 = new AmCharts.ValueAxis();
+    valueAxis1.axisAlpha = 0;
+    valueAxis1.dashLength = 1;
+    chart.addValueAxis(valueAxis1);
 
     // GRAPH
-    var graph = new AmCharts.AmGraph();
-    graph.title = "red line";
-    graph.valueField = "value";
-    graph.bullet = "round";
-    graph.bulletBorderColor = "#FFFFFF";
-    graph.bulletBorderThickness = 2;
-    graph.bulletBorderAlpha = 1;
-    graph.lineThickness = 2;
-    graph.lineColor = "#5fb503";
-    graph.negativeLineColor = "#efcc26";
-    graph.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
-    chart.addGraph(graph);
+    var graph1 = new AmCharts.AmGraph();
+    graph1.valueAxis = valueAxis1; // we have to indicate which value axis should be used
+    graph1.title = "red line";
+    graph1.valueField = "value";
+    graph1.bullet = "round";
+    graph1.bulletBorderColor = "#FFFFFF";
+    graph1.bulletBorderThickness = 2;
+    graph1.bulletBorderAlpha = 1;
+    graph1.lineThickness = 2;
+    graph1.lineColor = "#5fb503";
+    graph1.negativeLineColor = "#efcc26";
+    graph1.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
+    chart.addGraph(graph1);
+
+    var graph2 = new AmCharts.AmGraph();
+    graph2.valueAxis = valueAxis1; // we have to indicate which value axis should be used
+    graph2.title = "red line";
+    graph2.valueField = "value";
+    graph2.bullet = "round";
+    graph2.bulletBorderColor = "#FFFFFF";
+    graph2.bulletBorderThickness = 2;
+    graph2.bulletBorderAlpha = 1;
+    graph2.lineThickness = 2;
+    graph2.lineColor = "#5fb503";
+    graph2.negativeLineColor = "#efcc26";
+    graph2.hideBulletsCount = 50; // this makes the chart to hide bullets when there are more than 50 series in selection
+    chart.addGraph(graph2);
 
     // CURSOR
     chartCursor = new AmCharts.ChartCursor();
