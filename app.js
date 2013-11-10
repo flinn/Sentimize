@@ -28,7 +28,7 @@ if ('development' == app.get('env')) {
 
 // Routes
 app.get('/', routes.index);
-app.get('/snapshot/:symbol', snapshot.model);
+app.get('/snapshot/:symbol', snapshot.index);
 
 // API Endpoints
 app.get('/api/sentiments/:symbol', content.sentiments);
