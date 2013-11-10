@@ -36,6 +36,7 @@ app.get('/api/quotes/:symbol', content.quotes);
 app.get('/api/content/:symbol', content.fool);
 app.get('/api/trending/', content.trendingSymbols);
 app.get('/api/tweets/:symbol', content.tweets);
+app.get('/api/tweetWordCount/:symbol', content.tweetWordCount);
 
 app.listen(3000, function(){
   console.log('Express server listening on port ' + app.get('port'));
