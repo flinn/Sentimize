@@ -27,6 +27,7 @@ AmCharts.ready(function () {
     categoryAxis.axisColor = "#DADADA";
 
     // value
+
     var valueAxis1 = new AmCharts.ValueAxis();
     valueAxis1.axisAlpha = 0;
     valueAxis1.dashLength = 1;
@@ -37,6 +38,7 @@ AmCharts.ready(function () {
     valueAxis2.axisAlpha = 0;
     valueAxis2.dashLength = 1;
     chart.addValueAxis(valueAxis2);
+
 
     // GRAPH
     var graph1 = new AmCharts.AmGraph();

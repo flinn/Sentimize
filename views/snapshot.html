@@ -23,7 +23,7 @@ Snapshot <span class="fui-arrow-right"></span> <strong>{{ data.symbol }}</strong
 
             var bullish = json_data1[i].value;
             var bearish = json_data2[i].value;
-            var price = json_data3.quotes[i].LastClose;
+            var price = json_data3[i].LastClose;
             var sentiment = { date: date, bullish: bullish, bearish: bearish, price: price  };
 
             json_data_compiled.push(sentiment);
