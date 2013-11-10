@@ -1,4 +1,3 @@
-
 exports.index = function(req, res){
 	var model = {};
 	var stocksList = [];
@@ -23,10 +22,4 @@ exports.index = function(req, res){
   res.render('index', {
   	data: model
   });
-};
-
-exports.stocks = function(req, res){
-	var stocksList = {};
-  res.json(stocksList);
-
 };

@@ -1,31 +1,39 @@
 {% extends 'layout.html' %}
 
+{% block area %}
+Dashboard
+{% endblock %}
+
 {% block head %}
 {% endblock %}
 
 
 {% block content %}
-<h3 style="margin-top: -10px;">Leader Board</h3>
+<h3 style="margin-top: -10px;">Leaders</h3>
 
 <div class="demo-content-wide">
   <div class="table-responsive">
     <table class="table table-striped table-hover" style="text-align: center;">
       <thead>
         <tr>
-          <th style="text-align: center !important;">Rank</th>
-          <th style="text-align: center !important;">Symbol</th>
-          <th style="text-align: center !important;">Bullish</th>
-          <th style="text-align: center !important;">Bearish</th>
-          <th style="text-align: center !important;">CAPS Rating</th>
-          <th style="text-align: center !important;">Open Ideas</th>
-          <th style="text-align: center !important;">Actions</th>
+          <th class="headrow strong">Rank</th>
+          <th class="headrow strong">Symbol</th>
+          <th class="headrow strong">Senti-Metric&reg;</th>
+          <th class="headrow strong">Price</th>
+          <th class="headrow strong">Bullish</th>
+          <th class="headrow strong">Bearish</th>
+          <th class="headrow strong">CAPS Rating</th>
+          <th class="headrow strong">Open Ideas</th>
+          <th class="headrow strong">Actions</th>
         </tr>
       </thead>
       <tbody>
         {% for stock in data.stocks %}
           <tr>
-            <td>{{ stock.rank }}</td>
+            <td><strong>{{ stock.rank }}</strong></td>
             <td>{{ stock.symbol }}</td>
+            <td>{{ stock.sentimetric }}</td>
+            <td>{{ stock.price }}</td>
             <td>{{ stock.bullish }}</td>
             <td>{{ stock.bearish }}</td>
             <td>

@@ -1,7 +1,8 @@
 .nav-title {
 	margin-left: -20px;
-	font-family: 'Permanent Marker', cursive;
+	font-family: 'Roboto', sans-serif;
 	font-size: 40px !important;
+	color: #f1c40f !important;
 }
 
 .nav-logo {
@@ -12,15 +13,46 @@
 	width: 50px;
 }
 
+.breadcrumb-nav {
+	color: white; 
+	display: inline-block; 
+	float: right;
+	margin-left: -20px;
+	font-size: 32px;
+}
+
 .navbar {
 	border-radius: 0px !important;
 }
 
 .navbar.navbar-inverse .navbar-form .form-control:focus {
-	border-color: none;
+	border-color: transparent !important;
 }
 
 .navbar .navbar-form .form-control:focus {
+	border-color: transparent !important;
+}
+
+.navbar.navbar-inverse .navbar-form {
+	border-left: none;
+	border-bottom: none;
+}
+
+.navbar-inverse .navbar-brand {
+	border: none;
+}
+
+.navbar-inverse .nav > li > a {
+	border: none !important;
+}
+ 
+
+.headrow {
+	text-align: center !important;
+}
+
+.headrow .strong {
+	font-weight: bold;
 	border-color: none;
 }
 
