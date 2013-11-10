@@ -32,7 +32,7 @@ app.get('/snapshot/:symbol', snapshot.index);
 
 // API Endpoints
 app.get('/api/sentiments/:symbol', content.sentiments);
-//app.get('/api/quotes/:symbol', content.quotes);
+app.get('/api/quotes/:symbol', content.quotes);
 app.get('/api/content/:symbol', content.fool);
 
 app.listen(3000, function(){
