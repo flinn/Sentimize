@@ -27,3 +27,8 @@
 .padded-row {
 	padding: 5px 5px;
 }
+
+#tag {
+	padding: 6px 12px 7px 12px;
+	display: inline;
+}

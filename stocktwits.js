@@ -94,7 +94,7 @@ exports.get_word_counts = function (symbol, fn){
 
        wordCounts =  _.sortBy(wordCounts, function(word){ return word['count'];});
 
-        return fn(null, {wordCount: _.first(wordCounts.reverse(), [10])});
+        return fn(null, _.first(wordCounts.reverse(), [10]));
         }
     });
 };
