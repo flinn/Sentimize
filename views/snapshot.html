@@ -47,15 +47,60 @@
 
     </div><!-- /.container -->
 
-    <h1>{{ pagename|title }}</h1>
-    <ul>
-    {% for content in data.foolcontents %}
-      <li{% if loop.first %} class="first"{% endif %}>
-          <a href="{{ content.Url }}">{{content.Title}}<a>
-      </li>
-    {% endfor %}
-    </ul>
+    <!--<table>
+        <tr>
+            <th>
+                <h1>{{ pagename|title }}</h1>
+            </th>
+            <td>
+                <ul>
+                {% for content in data.foolcontents %}
+                  <li{% if loop.first %} class="first"{% endif %}>
+                      <a href="{{ content.Url }}">{{content.Title}}<a>
+                  </li>
+                {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <h1>{{ pagename|title }}</h1>
+            </th>
+            <td>
+                <ul>
+                {% for content in data.foolcontents %}
+                  <li{% if loop.first %} class="first"{% endif %}>
+                      <a href="{{ content.Url }}">{{content.Title}}<a>
+                  </li>
+                {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table>-->
 
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+            <th><h3>Articles</h3></th>
+            <th><h3>Tweets</h3></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td style="width: 50%">
+                {% for content in data.foolcontents %}
+                <table>
+                    <tr>
+                        <td class="padded-row"><span style="color: #16a085;" class="fui-document"></span></td>
+                        <td class="padded-row"><a href="{{ content.Url }}">{{content.Title}}</a></td>
+                </table>
+                {% endfor %}
+            </td>
+            <td style="width: 50%">
+            </td>
+          </tr>
+      </tbody>
+    </table>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
