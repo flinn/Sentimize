@@ -3,6 +3,7 @@ var get_fool_content = require('../fool'),
     get_trending_symbol = require('../stocktwits').get_trending_symbol,
     get_tweets = require('../stocktwits').get_tweets,
     get_word_counts = require('../stocktwits').get_word_counts,
+    get_caps_ratings = require('../caps'),
     get_quotes = require('../quotes');
 
 exports.fool = function(req, res){
@@ -42,6 +43,13 @@ exports.tweets = function(req, res){
 
 exports.tweetWordCount = function(req, res){
     get_word_counts(req.params.symbol, function(err, contents){
+
+        res.json(contents);
+    });
+};
+
+exports.capsRatings = function(req, res){
+    get_caps_ratings(req.params.symbol, function(err, contents){
 
         res.json(contents);
     });

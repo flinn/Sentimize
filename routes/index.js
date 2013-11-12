@@ -6,7 +6,7 @@ var load_sentiments = require('../psychsignal'),
     load_trending_symbols = require('../stocktwits').get_trending_symbol;
 
 exports.index = function(req, res) {
-  
+
   var myStocks = ['MSFT', 'AAPL', 'GOOG', 'SBUX', 'NFLX'];
   var number_of_callbacks = 3;
   var final_data = [];
@@ -14,7 +14,6 @@ exports.index = function(req, res) {
   var callbackCounter = 0;
 
   myStocks.forEach(function(stock){
-  	
   	var results = {};
 
   	async.waterfall([
@@ -31,7 +30,7 @@ exports.index = function(req, res) {
   		},
   		function(results, callback) {
 
-  		  load_quotes(stock, '2013-07-01', '2013-10-31', function(err, contents){
+  		  load_quotes(stock, '20130701', '20131031', function(err, contents){
   		  		results.quotes = contents;
   		  		callbackCounter++;
   		  		callback(null, results);
@@ -50,11 +49,11 @@ exports.index = function(req, res) {
   		  })
   		}
   	], function(err, results){
-  			
+
   			var rows = [];
 
   			results.forEach(function(result){
-					
+
 					var idea_count = Math.floor((Math.random() * 30) + 1);
           var sentimetric = (Math.random() * 9) + 1;
           var real_sentimetric = sentimetric.toFixed(2);
@@ -70,13 +69,13 @@ exports.index = function(req, res) {
 			    for (var y = 0; y < non_caps_star_count; y++) {
 			        non_caps_stars.push("not");
 			    }
-                    
+
 			    var row = {
 			    		"rank": 0,
 			        "symbol": result.symbol,
 			        "idea_num": idea_count,
 			        "sentimetric": real_sentimetric,
-			        "price": result.quotes[0].LastClose,
+			        "price": result.quotes[0].close,
 			        "cap_stars": caps_stars,
 			        "non_cap_stars": non_caps_stars,
 			        "bullish": result.sentiments.bullish[0].value,

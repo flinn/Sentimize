@@ -27,7 +27,7 @@ if ('development' == app.get('env')) {
   swig.setDefaults({ cache: false });
 }
 
-// Routes
+// Main UI routes
 app.get('/', routes.index);
 app.get('/stocks/add', stocks.index);
 app.get('/snapshot/:symbol', snapshot.index);
@@ -38,7 +38,8 @@ app.get('/api/quotes/:symbol', content.quotes);
 app.get('/api/content/:symbol', content.fool);
 app.get('/api/trending/', content.trendingSymbols);
 app.get('/api/tweets/:symbol', content.tweets);
-app.get('/api/tweetWordCount/:symbol', content.tweetWordCount);
+app.get('/api/tweetwordcount/:symbol', content.tweetWordCount);
+app.get('/api/capsratings/:symbol', content.capsRatings);
 
 app.listen(3000, function(){
   console.log('Express server listening on port ' + app.get('port'));
