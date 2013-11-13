@@ -33,12 +33,13 @@ Snapshot <span class="fui-arrow-right"></span> <strong>{{ data.symbol }}</strong
 
       var symbol = "{{data.symbol}}";
       var chartData = json_data_compiled;
+
     </script>
+
 {% endblock %}
 
 
 {% block content %}
-   <h1>{{data.quotes}}</h1>
     <div class="container">
         <div id="chartdiv" style="width: 100%; height: 335px;"></div>
         <div style="float:right;margin-right:20px;"></div>
