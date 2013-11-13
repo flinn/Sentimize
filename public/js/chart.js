@@ -1,7 +1,7 @@
 var chart;
 var chartCursor;
 
-AmCharts.ready(function () {
+AmCharts.ready(function() {
 
     //Color Key:
     var color_blue = '#3498DB';

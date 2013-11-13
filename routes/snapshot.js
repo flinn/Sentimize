@@ -1,6 +1,6 @@
 var load_sentiments = require('../psychsignal'),
     load_fool_content = require('../fool'),
-    load_quotes = require('../quotes'),
+    load_quotes = require('../quotes').get_quotes,
     load_tweets = require('../stocktwits').get_tweets,
     load_tweet_word_count = require('../stocktwits').get_word_counts;
 
@@ -53,7 +53,7 @@ exports.index = function(req, res){
         data.tweets = contents;
 
         callbackCounter++;
-        
+
         if (callbackCounter == 5) {
             res.render('snapshot', {
                 data: data,
@@ -66,12 +66,12 @@ exports.index = function(req, res){
         data.tweetwordcount = contents;
 
         callbackCounter++;
-        
+
         if (callbackCounter == 5) {
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
             });
         }
-    })
+    });
 };

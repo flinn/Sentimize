@@ -52,7 +52,8 @@ exports.get_word_counts = function (symbol, fn){
                 "the", "of", "to", "and", "a", "in", "is", "it", "an", "no", "says","than", "more", "also",
                 "you", "that", "he", "was", "for", "on", "are", "always", "a7", "put", "why", "gets", "how", "if",
                 "with", "as", "I", "his", "they", "be", "at", "one", "still", "will",
-                "have", "this", "from", "or", "had", "by", "but",
+                "have", "this", "from", "or", "had", "by", "but", "i", "not", "only",
+                "a","b", "c", "s", "3", "4", "5", "does", "any", "oi", "has", "the", "too", "may", "just",
                 "some", "what", "there", "we", "can", "out",
                 "other", "were", "all", "your", "when", "my"];
 

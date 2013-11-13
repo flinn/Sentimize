@@ -39,11 +39,6 @@ module.exports = function get_fool_content(symbol, fn){
     ],
     function(err, results){
 
-       // results.forEach(function (content){
-       //     console.log(content.Title);
-       //     console.log(content.Url);
-       // });
-
         return fn(null, results);
     });
 };

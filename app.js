@@ -35,6 +35,7 @@ app.get('/snapshot/:symbol', snapshot.index);
 // API Endpoints
 app.get('/api/sentiments/:symbol', content.sentiments);
 app.get('/api/quotes/:symbol', content.quotes);
+app.get('/api/currentprice/:symbol', content.currentPrice);
 app.get('/api/content/:symbol', content.fool);
 app.get('/api/trending/', content.trendingSymbols);
 app.get('/api/tweets/:symbol', content.tweets);

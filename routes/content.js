@@ -4,7 +4,8 @@ var get_fool_content = require('../fool'),
     get_tweets = require('../stocktwits').get_tweets,
     get_word_counts = require('../stocktwits').get_word_counts,
     get_caps_ratings = require('../caps'),
-    get_quotes = require('../quotes');
+    get_quotes = require('../quotes').get_quotes;
+    get_current_price = require('../quotes').get_current_price;
 
 exports.fool = function(req, res){
     get_fool_content(req.params.symbol, function(err, contents){
@@ -50,6 +51,13 @@ exports.tweetWordCount = function(req, res){
 
 exports.capsRatings = function(req, res){
     get_caps_ratings(req.params.symbol, function(err, contents){
+
+        res.json(contents);
+    });
+};
+
+exports.currentPrice = function(req, res){
+    get_current_price(req.params.symbol, function(err, contents){
 
         res.json(contents);
     });

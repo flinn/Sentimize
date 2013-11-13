@@ -23,7 +23,9 @@ Snapshot <span class="fui-arrow-right"></span> <strong>{{ data.symbol }}</strong
 
             var bullish = json_data1[i].value;
             var bearish = json_data2[i].value;
-            var price = json_data3[i].LastClose;
+
+            var price = json_data3[i].close;
+
             var sentiment = { date: date, bullish: bullish, bearish: bearish, price: price  };
 
             json_data_compiled.push(sentiment);
@@ -36,6 +38,7 @@ Snapshot <span class="fui-arrow-right"></span> <strong>{{ data.symbol }}</strong
 
 
 {% block content %}
+   <h1>{{data.quotes}}</h1>
     <div class="container">
         <div id="chartdiv" style="width: 100%; height: 335px;"></div>
         <div style="float:right;margin-right:20px;"></div>
@@ -64,7 +67,7 @@ Snapshot <span class="fui-arrow-right"></span> <strong>{{ data.symbol }}</strong
                         <td class="padded-row"><a href="{{ content.Url }}">{{content.Title}}</a></td>
                 </table>
                 {% endfor %}
-                
+
             </td>
             <td style="width: 50%; margin-top: -25px;">
                 {% for tweet in data.tweets %}
