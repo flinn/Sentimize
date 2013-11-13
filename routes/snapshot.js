@@ -16,6 +16,7 @@ exports.index = function(req, res){
         callbackCounter++;
 
         if (callbackCounter == 5) {
+
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -23,12 +24,14 @@ exports.index = function(req, res){
         }
     });
 
-    load_quotes(req.params.symbol, '2013-07-01', '2013-10-31', function(err, contents){
+    load_quotes(req.params.symbol, '20130701', '20131031', function(err, contents){
+
         data.quotes = contents;
 
         callbackCounter++;
 
         if (callbackCounter == 5) {
+
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -42,6 +45,7 @@ exports.index = function(req, res){
         callbackCounter++;
 
         if (callbackCounter == 5) {
+
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -55,6 +59,7 @@ exports.index = function(req, res){
         callbackCounter++;
 
         if (callbackCounter == 5) {
+
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
@@ -68,6 +73,7 @@ exports.index = function(req, res){
         callbackCounter++;
 
         if (callbackCounter == 5) {
+            console.log(data);
             res.render('snapshot', {
                 data: data,
                 pagename: "NewsFeed"
