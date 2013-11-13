@@ -42,6 +42,8 @@ app.get('/api/tweets/:symbol', content.tweets);
 app.get('/api/tweetwordcount/:symbol', content.tweetWordCount);
 app.get('/api/capsratings/:symbol', content.capsRatings);
 
-app.listen(3000, function(){
+var port = process.env.PORT || 3000;
+
+app.listen(port, function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
