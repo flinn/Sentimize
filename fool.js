@@ -1,45 +1,52 @@
 var request = require('request'),
     async = require('async'),
-    _  = require('underscore'),
+    _ = require('underscore'),
     _s = require('underscore.string');
 
-module.exports = function get_fool_content(symbol, cb){
+module.exports = function get_fool_content(symbol, cb) {
 
     async.waterfall([
-        function get_instrument(callback){
 
-            console.log('Get Instrument for ->' + symbol);
+            function get_instrument(callback) {
 
-            var url =_s.sprintf("http://api.fool.com/quotes/v3/admin/instruments/usa:%s?apikey=J6tv7JMuX6DRTqgWbhFIR8pKEww4YV81", symbol);
+                console.log('Get Instrument for ->' + symbol);
 
-            request({url:url, json:true}, function (error, response, instrument) {
-                console.log(instrument);
-                if (!error && response.statusCode == 200) {
+                var url = _s.sprintf("http://api.fool.com/quotes/v3/admin/instruments/usa:%s?apikey=J6tv7JMuX6DRTqgWbhFIR8pKEww4YV81", symbol);
 
-                    callback(null, instrument);
-                }
-            });
-        },
+                request({
+                    url: url,
+                    json: true
+                }, function(error, response, instrument) {
+                    console.log(instrument);
+                    if (!error && response.statusCode == 200) {
 
-        function get_foolContent(instrument, callback){
+                        callback(null, instrument);
+                    }
+                });
+            },
 
-            console.log('Got Instrument id ->' + instrument.Id);
+            function get_foolContent(instrument, callback) {
 
-            var base_url = "http://api.fool.com/content/Headlines/FindFilteredHeadlinesByInstrumentIds";
-            var params = _s.sprintf("?instrumentIds=%s&startingRow=0&endRow=10&primaryProvider=1&providerLimit=5&contentsiteId=1&providers=1", instrument.Id);
+                console.log('Got Instrument id ->' + instrument.Id);
 
-            var url = base_url + params;
+                var base_url = "http://api.fool.com/content/Headlines/FindFilteredHeadlinesByInstrumentIds";
+                var params = _s.sprintf("?instrumentIds=%s&startingRow=0&endRow=10&primaryProvider=1&providerLimit=5&contentsiteId=1&providers=1", instrument.Id);
 
-            request({url:url, json:true}, function (error, response, contents) {
-              if (!error && response.statusCode == 200) {
+                var url = base_url + params;
 
-                    callback(null, contents);
-              }
-            });
-        }
-    ],
-    function(err, results){
+                request({
+                    url: url,
+                    json: true
+                }, function(error, response, contents) {
+                    if (!error && response.statusCode == 200) {
 
-        return cb(null, results);
-    });
+                        callback(null, contents);
+                    }
+                });
+            }
+        ],
+        function(err, results) {
+
+            return cb(null, results);
+        });
 };

@@ -23,8 +23,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-  swig.setDefaults({ cache: false });
+    app.use(express.errorHandler());
+    swig.setDefaults({
+        cache: false
+    });
 }
 
 // Main UI routes
@@ -44,6 +46,6 @@ app.get('/api/capsratings/:symbol', content.capsRatings);
 
 var port = process.env.PORT || 3000;
 
-app.listen(port, function(){
-  console.log('Express server listening on port ' + app.get('port'));
+app.listen(port, function() {
+    console.log('Express server listening on port ' + app.get('port'));
 });
