@@ -90,8 +90,9 @@ exports.index = function(req, res) {
         model.stocks = _.sortBy(model.stocks, function(row) {
           return row['sentimetric'];
         });
+
         model.stocks = rows.reverse();
-        console.log(model.trendingsymbols);
+
         res.render('index', {
           data: model
         });

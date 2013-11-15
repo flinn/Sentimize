@@ -4,11 +4,11 @@ var load_sentiments = require('../psychsignal'),
     load_tweets = require('../stocktwits').get_tweets,
     load_tweet_word_count = require('../stocktwits').get_word_counts;
 
-exports.index = function(req, res){
+exports.index = function(req, res) {
     var data = {};
     var callbackCounter = 0;
 
-    load_sentiments(req.params.symbol, '2013-07-01', '2013-10-31', function(err, contents){
+    load_sentiments(req.params.symbol, '2013-07-01', '2013-10-31', function(err, contents) {
         data.symbol = contents.symbol;
 
         data.sentiments = contents;
@@ -24,7 +24,7 @@ exports.index = function(req, res){
         }
     });
 
-    load_quotes(req.params.symbol, '20130701', '20131031', function(err, contents){
+    load_quotes(req.params.symbol, '20130701', '20131031', function(err, contents) {
 
         data.quotes = contents;
 
@@ -39,7 +39,7 @@ exports.index = function(req, res){
         }
     });
 
-    load_fool_content(req.params.symbol, function(err, contents){
+    load_fool_content(req.params.symbol, function(err, contents) {
         data.foolcontents = contents;
 
         callbackCounter++;
@@ -53,7 +53,7 @@ exports.index = function(req, res){
         }
     });
 
-    load_tweets(req.params.symbol, function(err, contents){
+    load_tweets(req.params.symbol, function(err, contents) {
         data.tweets = contents;
 
         callbackCounter++;
@@ -67,7 +67,7 @@ exports.index = function(req, res){
         }
     });
 
-    load_tweet_word_count(req.params.symbol, function(err, contents){
+    load_tweet_word_count(req.params.symbol, function(err, contents) {
         data.tweetwordcount = contents;
 
         callbackCounter++;
