@@ -8,6 +8,9 @@ var express = require('express'),
 
 var app = express();
 
+var server = require('http').createServer(app),
+    io = require('socket.io').listen(server);
+
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', swig.renderFile);
@@ -43,6 +46,7 @@ app.get('/api/trending/', content.trendingSymbols);
 app.get('/api/tweets/:symbol', content.tweets);
 app.get('/api/tweetwordcount/:symbol', content.tweetWordCount);
 app.get('/api/capsratings/:symbol', content.capsRatings);
+
 
 var port = process.env.PORT || 3000;
 
