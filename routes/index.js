@@ -7,7 +7,7 @@ var _ = require('underscore'),
 
 exports.index = function(req, res) {
 
-  var myStocks = ['MSFT', 'AAPL', 'NFLX', 'SBUX'];
+  var myStocks = ['MSFT', 'AAPL', 'NFLX', 'SBUX', 'GOOG'];
   var model = {};
 
   async.concat(myStocks, get_data, function(err, results) {
@@ -43,7 +43,7 @@ exports.index = function(req, res) {
         "cap_stars": caps_stars,
         "non_cap_stars": non_caps_stars,
         "bullish": result.sentiments.bullish[0].value,
-        "bearish": result.sentiments.bearish[0].value
+        "bearish": result.sentiments.bearish[0].value,
       };
 
       rows.push(row);
@@ -55,8 +55,13 @@ exports.index = function(req, res) {
 
     model.stocks = rows.reverse();
 
-    res.render('index', {
-      data: model
+    loadTrendingSymbols(function(err, trendingsymbols) {
+
+      res.render('index', {
+        data: model,
+        symbols: trendingsymbols
+      });
+
     });
 
   });
@@ -84,15 +89,6 @@ exports.index = function(req, res) {
         loadCurrentPrice(symbol, function(err, price) {
 
           callback(null, price);
-        });
-      },
-
-      trendingsymbols: function(callback) {
-
-        loadTrendingSymbols(function(err, trendingsymbols) {
-
-          callback(null, trendingsymbols);
-
         });
       },
 

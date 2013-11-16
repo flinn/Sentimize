@@ -50,5 +50,15 @@ Dashboard
       </tbody>
     </table>
   </div>
+  <br/>
+  <br/>
+  <h3 style="margin-top: -10px;">Trending Symbols</h3>
+
+    {% for symbol in symbols %}
+      <div style="display: inline-block; margin: 7px 5px;">
+          <a href="#fakelink" id="tag" class="btn btn-primary">{{symbol}}</a>
+      </div>
+  {% endfor %}
+
 </div>
 {% endblock %}

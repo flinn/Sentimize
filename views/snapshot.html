@@ -8,31 +8,28 @@ Snapshot <span class="fui-arrow-right"></span> <strong>{{ data.symbol }}</strong
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script>
 
-        var json_data1 = {{JSON.stringify(data.sentiments.bullish)}};
-        var json_data2 = {{JSON.stringify(data.sentiments.bearish)}};
+        var bullishSentiments = {{JSON.stringify(data.sentiments.bullish)}};
+        var bearishSentiments = {{JSON.stringify(data.sentiments.bearish)}};
 
-        var json_data3 = {{JSON.stringify(data.quotes)}};
+        var quotes = {{JSON.stringify(data.quotes)}};
 
-        var json_data4 = {{JSON.stringify(data.tweetwordcount)}};
+        var chartDatas = [];
 
+        for(i = 0; i < bullishSentiments.length; i++) {
+            var date = bullishSentiments[i].date;
 
-        var json_data_compiled = [];
+            var bullish = bullishSentiments[i].value;
+            var bearish = bearishSentiments[i].value;
 
-        for(i = 0; i < json_data1.length; i++) {
-            var date = json_data1[i].date;
+            var price = quotes[i].close;
 
-            var bullish = json_data1[i].value;
-            var bearish = json_data2[i].value;
+            var data = { date: date, bullish: bullish, bearish: bearish, price: price  };
 
-            var price = json_data3[i].close;
-
-            var sentiment = { date: date, bullish: bullish, bearish: bearish, price: price  };
-
-            json_data_compiled.push(sentiment);
+            chartDatas.push(data);
         }
 
       var symbol = "{{data.symbol}}";
-      var chartData = json_data_compiled;
+      var chartData = chartDatas;
 
     </script>
 

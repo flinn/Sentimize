@@ -20,9 +20,7 @@ exports.get_trending_symbol = function(fn) {
                 final_symbols.push(symbol.symbol);
             });
 
-            return fn(null, {
-                symbols: _.uniq(final_symbols)
-            });
+            return fn(null, _.uniq(final_symbols));
         }
     });
 };
