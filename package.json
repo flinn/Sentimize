@@ -15,6 +15,7 @@
     "underscore": "1.5.2",
     "async": "0.2.9",
     "request": "2.27.0",
-    "tracer": "0.6.1"
+    "tracer": "0.6.1",
+    "socket.io": "0.9.16"
   }
 }
