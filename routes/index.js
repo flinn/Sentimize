@@ -1,25 +1,27 @@
-var load_sentiments = require('../psychsignal'),
-  _ = require('underscore'),
-  async = require('async'),
-  load_fool_content = require('../fool'),
-  load_current_price = require('../quotes').get_current_price,
-  load_trending_symbols = require('../stocktwits').get_trending_symbol;
+var _ = require('underscore'),
+    async = require('async'),
+    loadSentiments = require('../psychsignal'),
+    loadCapsRatings = require('../caps'),
+    loadCurrentPrice = require('../quotes').get_current_price,
+    loadTrendingSymbols = require('../stocktwits').get_trending_symbol;
 
 exports.index = function(req, res) {
 
-  var myStocks = ['MSFT', 'AAPL', 'GOOG'];
+  var myStocks = ['MSFT', 'AAPL', 'NFLX', 'SBUX'];
   var model = {};
 
-  async.concat(myStocks, make_requests, function(err, results) {
+  async.concat(myStocks, get_data, function(err, results) {
 
     var rows = [];
 
     results.forEach(function(result) {
 
       var idea_count = Math.floor((Math.random() * 30) + 1);
+
       var sentimetric = (Math.random() * 9) + 1;
       var real_sentimetric = sentimetric.toFixed(2);
-      var caps_star_count = Math.floor((Math.random() * 5) + 1);
+
+      var caps_star_count = parseInt(10, result.capsRatings);
       var non_caps_star_count = 5 - caps_star_count;
 
       var caps_stars = [];
@@ -59,47 +61,54 @@ exports.index = function(req, res) {
 
   });
 
-  function make_requests(stock, callback) {
+  function get_data(symbol, callback) {
 
-    console.log("Get data for =>" + stock);
+    console.log("Get data for =>" + symbol);
 
-    var results = {};
+    async.parallel({
 
-    async.waterfall([
+      symbol: function(callback) {
+        callback(null, symbol);
+      },
 
-      function(callback) {
-        results.symbol = stock;
+      sentiments: function(callback) {
 
-        load_sentiments(stock, '2013-07-01', '2013-10-31', function(err, contents) {
+        loadSentiments(symbol, '2013-07-01', '2013-10-31', function(err, sentiments) {
 
-          results.sentiments = contents;
-
-          callback(null, results);
+          callback(null, sentiments);
         });
       },
 
-      function(results, callback) {
+      price: function(callback) {
 
-        load_current_price(stock, function(err, contents) {
-          results.price = contents;
+        loadCurrentPrice(symbol, function(err, price) {
 
-          callback(null, results);
+          callback(null, price);
         });
       },
 
-      function(results, callback) {
+      trendingsymbols: function(callback) {
 
-        load_trending_symbols(function(err, contents) {
-          results.trendingsymbols = contents;
+        loadTrendingSymbols(function(err, trendingsymbols) {
 
-          callback(null, results);
+          callback(null, trendingsymbols);
+
+        });
+      },
+
+      capsRatings: function(callback) {
+
+        loadCapsRatings(symbol, function(err, ratings) {
+
+          callback(null, ratings);
 
         });
       }
-    ], function(err, results) {
 
-          callback(null, results);
+    }, function(err, results) {
 
-      });
+      callback(null, results);
+
+    });
   }
 };
