@@ -21,6 +21,7 @@ exports.get_quotes = function(symbol, startDate, endDate, fn) {
 exports.get_current_price = function(symbol, fn) {
 
     var url = _s.sprintf("http://api.fool.com/quotes/tmf/v1/quotes?apikey=cf3d7f4bfeba0786742d5339a527af61&symbols=usa:%s", symbol);
+    console.log(url);
 
     request({
         url: url,

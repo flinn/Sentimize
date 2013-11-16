@@ -6,6 +6,7 @@ var request = require('request'),
 exports.get_trending_symbol = function(fn) {
 
     var url = _s.sprintf("https://api.stocktwits.com/api/2/trending/symbols.json");
+    console.log(url);
 
     request({
         url: url,
