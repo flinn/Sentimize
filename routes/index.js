@@ -7,7 +7,7 @@ var _ = require('underscore'),
 
 exports.index = function(req, res) {
 
-  var myStocks = ['MSFT', 'AAPL', 'NFLX', 'SBUX', 'GOOG'];
+  var myStocks = ['MSFT', 'AAPL', 'NFLX', 'SBUX', 'GOOG', 'KOL'];
   var model = {};
 
   async.concat(myStocks, get_data, function(err, results) {
@@ -35,7 +35,6 @@ exports.index = function(req, res) {
       }
 
       var row = {
-        "rank": 0,
         "symbol": result.symbol,
         "idea_num": idea_count,
         "sentimetric": real_sentimetric,
