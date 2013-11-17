@@ -7,8 +7,8 @@ var _ = require('underscore'),
 
 exports.index = function(req, res) {
 
-  var myStocks = ['MSFT', 'AAPL', 'NFLX', 'SBUX', 'GOOG', 'KOL'];
   var model = {};
+  var myStocks = ['MSFT', 'AAPL', 'NFLX', 'SBUX', 'GOOG', 'KOL'];
 
   async.concat(myStocks, get_data, function(err, results) {
 
@@ -41,8 +41,8 @@ exports.index = function(req, res) {
         "price": result.price,
         "cap_stars": caps_stars,
         "non_cap_stars": non_caps_stars,
-        "bullish": result.sentiments.bullish[0].value,
-        "bearish": result.sentiments.bearish[0].value,
+        "bullish": _.last(result.sentiments.bullish).value,
+        "bearish": _.last(result.sentiments.bearish).value,
       };
 
       rows.push(row);
@@ -66,7 +66,11 @@ exports.index = function(req, res) {
       marketSentiments: function(callback) {
 
         loadSentiments('Market', '2013-10-01', '2013-11-31', function(err, sentiments) {
-          callback(null, sentiments);
+
+          callback(null, {
+            "bullish": _.last(sentiments.bullish).value,
+            "bearish": _.last(sentiments.bearish).value,
+          });
         });
       }
 
@@ -79,7 +83,6 @@ exports.index = function(req, res) {
       res.render('index', finalData);
 
     });
-
   });
 
   function get_data(symbol, callback) {

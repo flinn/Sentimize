@@ -10,7 +10,7 @@ Dashboard
 
 {% block content %}
 <br/>
-<h3 style="margin-top: -10px;">My Leaders</h3>
+<h4 style="margin-top: -10px;">My Leaders</h4>
 
 <div class="demo-content-wide">
   <div class="table-responsive">
@@ -52,7 +52,25 @@ Dashboard
   </div>
   <br/>
   <br/>
-  <h3 style="margin-top: -10px;">Trending Symbols</h3>
+  <h4 style="margin-top: -10px;">Market Sentiments</h4>
+  <table class="table table-striped table-hover" style="text-align: center;">
+    <thead>
+      <tr>
+        <th class="headrow strong">Bullish</th>
+        <th class="headrow strong">Bearish</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>{{marketSentiments.bullish}}</strong></td>
+        <td><strong>{{marketSentiments.bearish}}</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <br/>
+
+  <h4 style="margin-top: -10px;">Trending Symbols</h4>
 
     {% for symbol in symbols %}
       <div style="display: inline-block; margin: 7px 5px;">
