@@ -1,9 +1,9 @@
 var _ = require('underscore'),
-    async = require('async'),
-    loadSentiments = require('../psychsignal'),
-    loadCapsRatings = require('../caps'),
-    loadCurrentPrice = require('../quotes').get_current_price,
-    loadTrendingSymbols = require('../stocktwits').get_trending_symbol;
+  async = require('async'),
+  loadSentiments = require('../psychsignal'),
+  loadCapsRatings = require('../caps'),
+  loadCurrentPrice = require('../quotes').get_current_price,
+  loadTrendingSymbols = require('../stocktwits').get_trending_symbol;
 
 exports.index = function(req, res) {
 
@@ -54,12 +54,29 @@ exports.index = function(req, res) {
 
     model.stocks = rows.reverse();
 
-    loadTrendingSymbols(function(err, trendingsymbols) {
+    async.parallel({
 
-      res.render('index', {
-        data: model,
-        symbols: trendingsymbols
-      });
+      symbols: function(callback) {
+
+        loadTrendingSymbols(function(err, trendingsymbols) {
+          callback(null, trendingsymbols);
+        });
+      },
+
+      marketSentiments: function(callback) {
+
+        loadSentiments('Market', '2013-10-01', '2013-11-31', function(err, sentiments) {
+          callback(null, sentiments);
+        });
+      }
+
+    }, function(err, results) {
+
+      var finalData = _.extend({
+        data: model
+      }, results);
+
+      res.render('index', finalData);
 
     });
 
@@ -77,7 +94,7 @@ exports.index = function(req, res) {
 
       sentiments: function(callback) {
 
-        loadSentiments(symbol, '2013-07-01', '2013-10-31', function(err, sentiments) {
+        loadSentiments(symbol, '2013-10-01', '2013-11-31', function(err, sentiments) {
 
           callback(null, sentiments);
         });
