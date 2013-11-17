@@ -7,7 +7,7 @@ module.exports = function get_fool_content(symbol, cb) {
 
     async.waterfall([
 
-            function get_instrument(callback) {
+            function getInstrument(callback) {
 
                 console.log('Get Instrument for ->' + symbol);
 
@@ -25,12 +25,12 @@ module.exports = function get_fool_content(symbol, cb) {
                 });
             },
 
-            function get_foolContent(instrument, callback) {
+            function getFoolContent(instrument, callback) {
 
                 console.log('Got Instrument id ->' + instrument.Id);
 
                 var base_url = "http://api.fool.com/content/Headlines/FindFilteredHeadlinesByInstrumentIds";
-                var params = _s.sprintf("?instrumentIds=%s&startingRow=0&endRow=10&primaryProvider=1&providerLimit=5&contentsiteId=1&providers=1", instrument.Id);
+                var params = _s.sprintf("?instrumentIds=%s&startingRow=0&endRow=20&primaryProvider=1&providerLimit=5&contentsiteId=1&providers=1", instrument.Id);
 
                 var url = base_url + params;
 
