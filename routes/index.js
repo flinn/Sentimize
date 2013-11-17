@@ -48,11 +48,10 @@ exports.index = function(req, res) {
       rows.push(row);
     });
 
-    model.stocks = _.sortBy(model.stocks, function(row) {
-      return row['sentimetric'];
+    //Final data assignment
+    model.stocks = _.sortBy(rows, function(row) {
+      return row['sentimetric'] * -1; // Descending sort
     });
-
-    model.stocks = rows.reverse();
 
     async.parallel({
 
