@@ -54,7 +54,7 @@ exports.get_word_counts = function (symbol, fn){
                 "with", "as", "I", "his", "they", "be", "at", "one", "still", "will","etc",
                 "have", "this", "from", "or", "had", "by", "but",
                 "some", "what", "there", "we", "can", "out",
-                "other", "were", "all", "your", "when", "my"];
+                "other", "were", "all", "your", "when", "my", "i", "our", "here"];
 
         var tweets = [];
         var wordCounts = [];

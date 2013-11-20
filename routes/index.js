@@ -7,7 +7,7 @@ var load_sentiments = require('../psychsignal'),
 
 exports.index = function(req, res) {
   
-  var myStocks = ['MSFT', 'AAPL', 'GOOG', 'SBUX', 'NFLX'];
+  var myStocks = ['MSFT', 'AAPL', 'GOOG', 'SBUX', 'TSLA', 'NFLX', 'SHOS', 'DVN', 'CMG'];
   var number_of_callbacks = 3;
   var final_data = [];
   var model = {};
@@ -56,10 +56,10 @@ exports.index = function(req, res) {
   			results.forEach(function(result){
 					
 					var idea_count = Math.floor((Math.random() * 30) + 1);
-          var sentimetric = (Math.random() * 9) + 1;
-          var real_sentimetric = sentimetric.toFixed(2);
 			    var caps_star_count = Math.floor((Math.random() * 5) + 1);
 			    var non_caps_star_count = 5 - caps_star_count;
+
+          var sentimetric = (Math.random() * 9 + 1).toFixed(2);
 
 			    var caps_stars = [];
 			    var non_caps_stars = [];
@@ -70,12 +70,11 @@ exports.index = function(req, res) {
 			    for (var y = 0; y < non_caps_star_count; y++) {
 			        non_caps_stars.push("not");
 			    }
-                    
+
 			    var row = {
-			    		"rank": 0,
 			        "symbol": result.symbol,
 			        "idea_num": idea_count,
-			        "sentimetric": real_sentimetric,
+			        "sentimetric": sentimetric,
 			        "price": result.quotes[0].LastClose,
 			        "cap_stars": caps_stars,
 			        "non_cap_stars": non_caps_stars,
@@ -88,9 +87,13 @@ exports.index = function(req, res) {
 
   			if (callbackCounter == (myStocks.length * number_of_callbacks)) {
 
-          model.stocks = _.sortBy(model.stocks, function(row){ return row['sentimetric'];});
-          model.stocks = rows.reverse();
-  				console.log(model.trendingsymbols);
+          //model.stocks = _.sortBy(model.stocks, function(row){ return row['sentimetric'];});
+          //model.stocks = rows.reverse;   
+          //wordCounts =  _.sortBy(wordCounts, function(word){ return word['count'];});
+
+          var sortedStocks = _.sortBy(rows, function(row) { return row['sentimetric'];}).reverse();
+
+          model.stocks = sortedStocks;
 					res.render('index', {data: model});
 
 				}
