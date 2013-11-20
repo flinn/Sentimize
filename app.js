@@ -8,6 +8,9 @@ var express = require('express'),
 
 var app = express();
 
+var server = require('http').createServer(app),
+    io = require('socket.io').listen(server);
+
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', swig.renderFile);
@@ -23,11 +26,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-  swig.setDefaults({ cache: false });
+    app.use(express.errorHandler());
+    swig.setDefaults({
+        cache: false
+    });
 }
 
-// Routes
+// Main UI routes
 app.get('/', routes.index);
 app.get('/stocks/add', stocks.index);
 app.get('/snapshot/:symbol', snapshot.index);
@@ -35,11 +40,16 @@ app.get('/snapshot/:symbol', snapshot.index);
 // API Endpoints
 app.get('/api/sentiments/:symbol', content.sentiments);
 app.get('/api/quotes/:symbol', content.quotes);
+app.get('/api/currentprice/:symbol', content.currentPrice);
 app.get('/api/content/:symbol', content.fool);
 app.get('/api/trending/', content.trendingSymbols);
 app.get('/api/tweets/:symbol', content.tweets);
-app.get('/api/tweetWordCount/:symbol', content.tweetWordCount);
+app.get('/api/tweetwordcount/:symbol', content.tweetWordCount);
+app.get('/api/capsratings/:symbol', content.capsRatings);
 
-app.listen(3000, function(){
-  console.log('Express server listening on port ' + app.get('port'));
+
+var port = process.env.PORT || 3000;
+
+app.listen(port, function() {
+    console.log('Express server listening on port ' + app.get('port'));
 });

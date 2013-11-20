@@ -1,102 +1,128 @@
-var load_sentiments = require('../psychsignal'),
-    _ = require('underscore'),
-    load_fool_content = require('../fool'),
-    load_quotes = require('../quotes'),
-    async = require('async'),
-    load_trending_symbols = require('../stocktwits').get_trending_symbol;
+var _ = require('underscore'),
+  async = require('async'),
+  loadSentiments = require('../psychsignal'),
+  loadCapsRatings = require('../caps'),
+  loadCurrentPrice = require('../quotes').get_current_price,
+  loadTrendingSymbols = require('../stocktwits').get_trending_symbol;
 
 exports.index = function(req, res) {
-  
-  var myStocks = ['MSFT', 'AAPL', 'GOOG', 'SBUX', 'TSLA', 'NFLX', 'SHOS', 'DVN', 'CMG'];
-  var number_of_callbacks = 3;
-  var final_data = [];
+
   var model = {};
-  var callbackCounter = 0;
+  var myStocks = ['MSFT', 'AAPL', 'NFLX', 'SBUX', 'GOOG', 'KOL'];
 
-  myStocks.forEach(function(stock){
-  	
-  	var results = {};
+  async.concat(myStocks, get_data, function(err, results) {
 
-  	async.waterfall([
+    var rows = [];
 
-  		function(callback){
-  			results.symbol = stock;
+    results.forEach(function(result) {
 
-  			load_sentiments(stock, '2013-07-01', '2013-10-31', function(err, contents){
+      var idea_count = Math.floor((Math.random() * 30) + 1);
 
-  					results.sentiments = contents;
-  					callbackCounter++;
-  					callback(null, results);
-  			})
-  		},
-  		function(results, callback) {
+      var sentimetric = (Math.random() * 9) + 1;
+      var real_sentimetric = sentimetric.toFixed(2);
 
-  		  load_quotes(stock, '2013-07-01', '2013-10-31', function(err, contents){
-  		  		results.quotes = contents;
-  		  		callbackCounter++;
-  		  		callback(null, results);
-  		  })
-  		},
-  		function(results, callback) {
+      var caps_star_count = parseInt(10, result.capsRatings);
+      var non_caps_star_count = 5 - caps_star_count;
 
-  		  load_trending_symbols(function(err, contents){
-  		  		results.trendingsymbols = contents;
+      var caps_stars = [];
+      var non_caps_stars = [];
 
-  		  		//model.trendingsymbols = results.trendingsymbols;
-  		  		callbackCounter++;
-  		  		final_data.push(results);
+      for (var z = 1; z <= caps_star_count; z++) {
+        caps_stars.push("star");
+      }
+      for (var y = 0; y < non_caps_star_count; y++) {
+        non_caps_stars.push("not");
+      }
 
-  		  		callback(null, final_data);
-  		  })
-  		}
-  	], function(err, results){
-  			
-  			var rows = [];
+      var row = {
+        "symbol": result.symbol,
+        "idea_num": idea_count,
+        "sentimetric": real_sentimetric,
+        "price": result.price,
+        "cap_stars": caps_stars,
+        "non_cap_stars": non_caps_stars,
+        "bullish": _.last(result.sentiments.bullish).value,
+        "bearish": _.last(result.sentiments.bearish).value,
+      };
 
-  			results.forEach(function(result){
-					
-					var idea_count = Math.floor((Math.random() * 30) + 1);
-			    var caps_star_count = Math.floor((Math.random() * 5) + 1);
-			    var non_caps_star_count = 5 - caps_star_count;
+      rows.push(row);
+    });
 
-          var sentimetric = (Math.random() * 9 + 1).toFixed(2);
+    //Final data assignment
+    model.stocks = _.sortBy(rows, function(row) {
+      return row['sentimetric'] * -1; // Descending sort
+    });
 
-			    var caps_stars = [];
-			    var non_caps_stars = [];
+    async.parallel({
 
-			    for (var z = 1; z <= caps_star_count; z++) {
-			        caps_stars.push("star");
-			    }
-			    for (var y = 0; y < non_caps_star_count; y++) {
-			        non_caps_stars.push("not");
-			    }
+      symbols: function(callback) {
 
-			    var row = {
-			        "symbol": result.symbol,
-			        "idea_num": idea_count,
-			        "sentimetric": sentimetric,
-			        "price": result.quotes[0].LastClose,
-			        "cap_stars": caps_stars,
-			        "non_cap_stars": non_caps_stars,
-			        "bullish": result.sentiments.bullish[0].value,
-			        "bearish": result.sentiments.bearish[0].value
-			    };
+        loadTrendingSymbols(function(err, trendingsymbols) {
+          callback(null, trendingsymbols);
+        });
+      },
 
-			    rows.push(row);
-  			});
+      marketSentiments: function(callback) {
 
-  			if (callbackCounter == (myStocks.length * number_of_callbacks)) {
+        loadSentiments('Market', '2013-10-01', '2013-11-31', function(err, sentiments) {
 
-          //model.stocks = _.sortBy(model.stocks, function(row){ return row['sentimetric'];});
-          //model.stocks = rows.reverse;   
-          //wordCounts =  _.sortBy(wordCounts, function(word){ return word['count'];});
+          callback(null, {
+            "bullish": _.last(sentiments.bullish).value,
+            "bearish": _.last(sentiments.bearish).value,
+          });
+        });
+      }
 
-          var sortedStocks = _.sortBy(rows, function(row) { return row['sentimetric'];}).reverse();
+    }, function(err, results) {
 
-          model.stocks = sortedStocks;
-					res.render('index', {data: model});
+      var finalData = _.extend({
+        data: model
+      }, results);
 
-				}
-  	})
+      res.render('index', finalData);
+
+    });
   });
+
+  function get_data(symbol, callback) {
+
+    console.log("Get data for =>" + symbol);
+
+    async.parallel({
+
+      symbol: function(callback) {
+        callback(null, symbol);
+      },
+
+      sentiments: function(callback) {
+
+        loadSentiments(symbol, '2013-10-01', '2013-11-31', function(err, sentiments) {
+
+          callback(null, sentiments);
+        });
+      },
+
+      price: function(callback) {
+
+        loadCurrentPrice(symbol, function(err, price) {
+
+          callback(null, price);
+        });
+      },
+
+      capsRatings: function(callback) {
+
+        loadCapsRatings(symbol, function(err, ratings) {
+
+          callback(null, ratings);
+
+        });
+      }
+
+    }, function(err, results) {
+
+      callback(null, results);
+
+    });
+  }
 };

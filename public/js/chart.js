@@ -1,7 +1,7 @@
 var chart;
 var chartCursor;
 
-AmCharts.ready(function () {
+AmCharts.ready(function() {
 
     //Color Key:
     var color_blue = '#3498DB';
@@ -27,7 +27,6 @@ AmCharts.ready(function () {
     categoryAxis.axisColor = "#DADADA";
 
     // value
-
     var valueAxis1 = new AmCharts.ValueAxis();
     valueAxis1.axisAlpha = 0;
     valueAxis1.dashLength = 1;

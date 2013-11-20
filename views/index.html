@@ -9,7 +9,8 @@ Dashboard
 
 
 {% block content %}
-<h3 style="margin-top: -10px;">Leaders</h3>
+<br/>
+<h4 style="margin-top: -10px;">My Leaders</h4>
 
 <div class="demo-content-wide">
   <div class="table-responsive">
@@ -18,7 +19,7 @@ Dashboard
         <tr>
           <th class="headrow strong">Symbol</th>
           <th class="headrow strong">Senti-Metric &#0153;</th>
-          <th class="headrow strong">Price</th>
+          <th class="headrow strong">Current Price ($$)</th>
           <th class="headrow strong">Bullish</th>
           <th class="headrow strong">Bearish</th>
           <th class="headrow strong">CAPS Rating &reg;</th>
@@ -29,7 +30,7 @@ Dashboard
       <tbody>
         {% for stock in data.stocks %}
           <tr>
-            <td><strong>{{ stock.symbol }}</strong></td>
+            <td><strong><a href="http://caps.fool.com/Ticker/{{ stock.symbol }}.aspx"> {{ stock.symbol }}</a></strong></td>
             <td>{% if (stock.sentimetric >= 8) %}<span style="font-size: 18px" class="label label-important">{% endif %}{% if (stock.sentimetric <= 8 && stock.sentimetric >= 5) %}<span style="font-size: 18px" class="label label-warning">{% endif %}{% if (stock.sentimetric < 5) %}<span style="font-size: 18px" class="label label-default">{% endif %}{{ stock.sentimetric }}</span></td>
             <td>${{ stock.price }}</td>
             <td>{{ stock.bullish }}
@@ -48,6 +49,34 @@ Dashboard
         {% endfor %}
       </tbody>
     </table>
-  </div>          
+  </div>
+  <br/>
+  <br/>
+  <h4 style="margin-top: -10px;">Market Sentiments</h4>
+  <table class="table table-striped table-hover" style="text-align: center;">
+    <thead>
+      <tr>
+        <th class="headrow strong">Bullish</th>
+        <th class="headrow strong">Bearish</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>{{marketSentiments.bullish}}</strong></td>
+        <td><strong>{{marketSentiments.bearish}}</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <br/>
+  <br/>
+
+  <h4 style="margin-top: -10px;">Trending Symbols</h4>
+
+    {% for symbol in symbols %}
+      <div style="display: inline-block; margin: 7px 5px;">
+          <a href="http://caps.fool.com/Ticker/{{ symbol }}.aspx" id="tag" class="btn btn-primary">{{symbol}}</a>
+      </div>
+  {% endfor %}
+
 </div>
 {% endblock %}
